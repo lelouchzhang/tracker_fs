@@ -20,18 +20,18 @@ const layout = ({ children }: { children: React.ReactNode }) => {
       <section className="auth-right-section">
         <div className="z-10 relative lg:mt-4 lg:mb-16">
           <blockquote className="auth-blockquote">
-            Signalist turned my watchlist into a winning list. The alerts are
-            spot-on, and I feel more confident making moves in the market
+            Signalist 把我在链上的“收藏”变成了“收盈”。每次推送都踩在点上，让我在
+            DeFi 里出手更有底气。
           </blockquote>
           <div className="flex items-center justify-between">
             <div>
-              <cite className="auth-testimonial-author">- Ethan R.</cite>
-              <p className="max-md:text-xs text-gray-500">Retail Investor</p>
+              <cite className="auth-testimonial-author">— 分苗三号机</cite>
+              <p className="max-md:text-xs text-gray-500">链上机器人</p>
             </div>
             <div className="flex items-center gap-0.5">
               {[1, 2, 3, 4, 5].map((star) => (
                 <Image
-                  src="/assets/icons/star.svg"
+                  src="/assets/icons/星星.svg"
                   alt="Star"
                   key={star}
                   width={20}
