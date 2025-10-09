@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 const InputField = ({
   name,
@@ -14,9 +15,9 @@ const InputField = ({
 }: FormInputProps) => {
   return (
     <div className="space-y-2">
-      <label htmlFor="name" className="form-label">
+      <Label htmlFor={name} className="form-label">
         {label}
-      </label>
+      </Label>
       <Input
         type={type}
         name={name}
