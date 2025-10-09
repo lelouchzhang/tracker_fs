@@ -5,10 +5,15 @@ import {
   MARKET_OVERVIEW_WIDGET_CONFIG,
   TOP_STORIES_WIDGET_CONFIG,
 } from "@/lib/constants";
+import { useMemo } from "react";
 // import { sendDailyNewsSummary } from "@/lib/inngest/functions";
 
 const Home = () => {
   const scriptUrl = `https://s3.tradingview.com/external-embedding/embed-widget-`;
+  const memoizedMarketOverviewConfig = useMemo(
+    () => MARKET_OVERVIEW_WIDGET_CONFIG,
+    []
+  );
 
   return (
     <div className="flex min-h-screen home-wrapper">
@@ -17,12 +22,12 @@ const Home = () => {
           <TradingViewWidget
             title="Market Overview"
             scriptUrl={`${scriptUrl}market-overview.js`}
-            config={MARKET_OVERVIEW_WIDGET_CONFIG}
+            config={memoizedMarketOverviewConfig}
             className="custom-chart"
             height={600}
           />
         </div>
-        <div className="md-col-span xl:col-span-2">
+        <div className="md:col-span-1 xl:col-span-2">
           <TradingViewWidget
             title="Stock Heatmap"
             scriptUrl={`${scriptUrl}stock-heatmap.js`}
