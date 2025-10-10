@@ -1,5 +1,6 @@
 "use client";
 import { CountrySelectField } from "@/components/forms/CountrySelectField";
+import FooterLink from "@/components/forms/FooterLink";
 import InputField from "@/components/forms/InputField";
 import SelectField from "@/components/forms/SelectField";
 import { Button } from "@/components/ui/button";
@@ -118,6 +119,11 @@ const SignUp = () => {
         >
           {isSubmitting ? "Creating Account" : "Start Your Investing Journey"}
         </Button>
+        <FooterLink
+          text="已有帐号?"
+          linkText="跳转到登录页面"
+          href="/sign-in"
+        />
       </form>
     </>
   );
