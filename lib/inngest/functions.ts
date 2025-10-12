@@ -40,6 +40,8 @@ export const sendSignUpEmail = inngest.createFunction(
         data: { email, name },
       } = event;
 
+      console.log(event);
+
       return await sendWelcomeEmail({ email, name, intro: introText });
     });
 
