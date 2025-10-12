@@ -10,8 +10,12 @@ import {
   RISK_TOLERANCE_OPTIONS,
 } from "@/lib/constants";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { signUpWithEmail } from "@/lib/actions/auth.actions";
+import { useRouter } from "next/navigation";
 
 const SignUp = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -29,13 +33,19 @@ const SignUp = () => {
     },
     mode: "onBlur",
   });
+
   const onSubmit = async (data: SignUpFormData) => {
     try {
-      console.log(data);
-    } catch (error) {
-      console.log(error);
+      const result = await signUpWithEmail(data);
+      if (!!result.success) router.push("/");
+    } catch (e) {
+      console.error(e);
+      toast.error("注册失败", {
+        description: e instanceof Error ? e.message : "注册失败，原因未知.",
+      });
     }
   };
+
   return (
     <>
       <h1 className="form-title">Sign Up & Personalize</h1>
