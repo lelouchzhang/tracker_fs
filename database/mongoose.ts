@@ -36,4 +36,6 @@ export const connectToDB = async () => {
   console.log(
     `Mongoose已成功连接至数据库：${process.env.NODE_ENV} - ${MONGODB_URI}`
   );
+
+  return cached.conn;
 };
