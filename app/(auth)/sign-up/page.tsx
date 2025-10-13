@@ -9,7 +9,7 @@ import {
   PREFERRED_INDUSTRIES,
   RISK_TOLERANCE_OPTIONS,
 } from "@/lib/constants";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { signUpWithEmail } from "@/lib/actions/auth.actions";
 import { useRouter } from "next/navigation";
@@ -36,6 +36,7 @@ const SignUp = () => {
 
   const onSubmit = async (data: SignUpFormData) => {
     try {
+      // 保存用户信息到数据库，并且发送邮件
       const result = await signUpWithEmail(data);
       if (!!result.success) router.push("/");
     } catch (e) {
