@@ -49,7 +49,7 @@ const SignIn = () => {
         <InputField
           name="email"
           label="Email"
-          placeholder="contact@jsmastery.com"
+          placeholder="contact@gmail.com"
           register={register}
           error={errors.email}
           validation={{
