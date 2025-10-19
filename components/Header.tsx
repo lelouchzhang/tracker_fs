@@ -7,7 +7,6 @@ import { searchStocks } from "@/lib/actions/finnhub.actions";
 
 const Header = async ({ user }: { user: User }) => {
   const initialStocks = await searchStocks()
-  console.log(initialStocks)
 
   return (
     <header className="sticky top-0 header">
