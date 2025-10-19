@@ -20,7 +20,7 @@ const Home = () => {
       <section className="grid w-full gap-8 home-section">
         <div className="md:col-span-1 xl:col-span-1">
           <TradingViewWidget
-            title="Market Overview"
+            title="市场概览"
             scriptUrl={`${scriptUrl}market-overview.js`}
             config={memoizedMarketOverviewConfig}
             className="custom-chart"
@@ -29,8 +29,8 @@ const Home = () => {
         </div>
         <div className="md:col-span-1 xl:col-span-2">
           <TradingViewWidget
-            title="Stock Heatmap"
-            scriptUrl={`${scriptUrl}stock-heatmap.js`}
+            title="加密货币热力图"
+            scriptUrl={`${scriptUrl}crypto-coins-heatmap.js`}
             config={HEATMAP_WIDGET_CONFIG}
             height={600}
           />
