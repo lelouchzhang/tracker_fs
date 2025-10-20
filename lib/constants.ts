@@ -6,10 +6,12 @@ export const NAV_ITEMS = [
 
 // Sign-up form select options
 export const INVESTMENT_GOALS = [
-  { value: "Growth", label: "追求增长" },
-  { value: "Income", label: "稳定收益" },
+  { value: "Growth", label: "追求高增长" },
+  { value: "Income", label: "稳定现金流" },
   { value: "Balanced", label: "均衡配置" },
   { value: "Conservative", label: "保值稳健" },
+  { value: "Speculative", label: "短线投机" },
+  { value: "Value", label: "价值投资" }
 ];
 
 export const RISK_TOLERANCE_OPTIONS = [
@@ -19,11 +21,15 @@ export const RISK_TOLERANCE_OPTIONS = [
 ];
 
 export const PREFERRED_INDUSTRIES = [
-  { value: "Technology", label: "科技" },
-  { value: "Healthcare", label: "医疗" },
-  { value: "Finance", label: "基金" },
-  { value: "Energy", label: "能源" },
-  { value: "Consumer Goods", label: "大消费" },
+  { value: "Technology", label: "科技互联网" },
+  { value: "Healthcare", label: "医疗健康" },
+  { value: "Finance", label: "金融地产" },
+  { value: "Energy", label: "能源化工" },
+  { value: "Consumer", label: "大消费" },
+  { value: "Manufacturing", label: "高端制造" },
+  { value: "Crypto", label: "加密货币" },
+  { value: "NewEnergy", label: "新能源" },
+  { value: "AI", label: "人工智能" }
 ];
 
 export const ALERT_TYPE_OPTIONS = [
@@ -55,37 +61,67 @@ export const MARKET_OVERVIEW_WIDGET_CONFIG = {
   symbolActiveColor: "rgba(15, 237, 190, 0.05)", // highlight color for active symbol
   tabs: [
     {
-      title: "Financial",
+      title: "沪深300",
       symbols: [
-        { s: "NYSE:JPM", d: "JPMorgan Chase" },
-        { s: "NYSE:WFC", d: "Wells Fargo Co New" },
-        { s: "NYSE:BAC", d: "Bank Amer Corp" },
-        { s: "NYSE:HSBC", d: "Hsbc Hldgs Plc" },
-        { s: "NYSE:C", d: "Citigroup Inc" },
-        { s: "NYSE:MA", d: "Mastercard Incorporated" },
-      ],
+        { s: "SZSE:399001", d: "深证指数" },
+        { s: "SZSE:000001", d: "平安银行" },
+        { s: "SZSE:000858", d: "五粮液" },
+        { s: "SSE:600519", d: "贵州茅台" },
+        { s: "SZSE:000333", d: "美的集团" },
+      ]
     },
     {
-      title: "Technology",
-      symbols: [
-        { s: "NASDAQ:AAPL", d: "Apple" },
-        { s: "NASDAQ:GOOGL", d: "Alphabet" },
-        { s: "NASDAQ:MSFT", d: "Microsoft" },
-        { s: "NASDAQ:FB", d: "Meta Platforms" },
-        { s: "NYSE:ORCL", d: "Oracle Corp" },
-        { s: "NASDAQ:INTC", d: "Intel Corp" },
-      ],
+      title: "加密货币",
+      "symbols": [
+        {
+          "s": "BINANCE:ETHUSDT",
+          "d": "ETH",
+          "base-currency-logoid": "crypto/XTVCETH",
+          "currency-logoid": "crypto/XTVCUSDT"
+        },
+        {
+          "s": "BINANCE:SOLUSDT",
+          "d": "SOL",
+          "base-currency-logoid": "crypto/XTVCSOL",
+          "currency-logoid": "crypto/XTVCUSDT"
+        },
+        {
+          "s": "BITSTAMP:BTCUSD",
+          "d": "BTC",
+          "base-currency-logoid": "crypto/XTVCBTC",
+          "currency-logoid": "country/US"
+        },
+        {
+          "s": "BITSTAMP:USDCUSD",
+          "d": "USDC",
+          "base-currency-logoid": "crypto/XTVCUSDC",
+          "currency-logoid": "country/US"
+        }
+      ]
     },
     {
-      title: "Services",
-      symbols: [
-        { s: "NASDAQ:AMZN", d: "Amazon" },
-        { s: "NYSE:BABA", d: "Alibaba Group Hldg Ltd" },
-        { s: "NYSE:T", d: "At&t Inc" },
-        { s: "NYSE:WMT", d: "Walmart" },
-        { s: "NYSE:V", d: "Visa" },
-      ],
-    },
+      "title": "外汇",
+      "symbols": [
+        {
+          "s": "FX_IDC:USDCNY",
+          "d": "美元兑人民币",
+          "base-currency-logoid": "country/US",
+          "currency-logoid": "country/CN"
+        },
+        {
+          "s": "FX_IDC:CNYJPY",
+          "d": "人民币兑日元",
+          "base-currency-logoid": "country/CN",
+          "currency-logoid": "country/JP"
+        },
+        {
+          "s": "FX_IDC:CNYRUB",
+          "d": "人民币兑卢布",
+          "base-currency-logoid": "country/CN",
+          "currency-logoid": "country/RU"
+        }
+      ]
+    }
   ],
   support_host: "https://www.tradingview.com", // TradingView host
   backgroundColor: "#141414", // background color
@@ -96,29 +132,26 @@ export const MARKET_OVERVIEW_WIDGET_CONFIG = {
 };
 
 export const HEATMAP_WIDGET_CONFIG = {
-  dataSource: "SPX500",
-  blockSize: "market_cap_basic",
-  blockColor: "change",
-  grouping: "sector",
-  isTransparent: true,
-  locale: "zh_CN",
-  symbolUrl: "",
-  colorTheme: "dark",
-  exchanges: [],
-  hasTopBar: false,
-  isDataSetEnabled: false,
-  isZoomEnabled: true,
-  hasSymbolTooltip: true,
-  isMonoSize: false,
-  width: "100%",
-  height: "600",
+  "dataSource": "Crypto",
+  "blockSize": "market_cap_calc",
+  "blockColor": "24h_close_change|5",
+  "locale": "zh_CN",
+  "symbolUrl": "",
+  "colorTheme": "dark",
+  "hasTopBar": false,
+  "isDataSetEnabled": false,
+  "isZoomEnabled": true,
+  "hasSymbolTooltip": true,
+  "isMonoSize": false,
+  "width": "100%",
+  "height": "600"
 };
 
 export const TOP_STORIES_WIDGET_CONFIG = {
   displayMode: "regular",
   feedMode: "market",
   colorTheme: "dark",
-  isTransparent: true,
+  isTransparent: false,
   locale: "zh_CN",
   market: "stock",
   width: "100%",

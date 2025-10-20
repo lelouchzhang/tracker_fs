@@ -17,7 +17,7 @@ const WatchlistButton = ({
 
     const label = useMemo(() => {
         if (type === "icon") return added ? "" : "";
-        return added ? "Remove from Watchlist" : "Add to Watchlist";
+        return added ? "移出观察列表" : "加入观察列表";
     }, [added, type]);
 
     const handleClick = () => {
@@ -29,8 +29,8 @@ const WatchlistButton = ({
     if (type === "icon") {
         return (
             <button
-                title={added ? `Remove ${symbol} from watchlist` : `Add ${symbol} to watchlist`}
-                aria-label={added ? `Remove ${symbol} from watchlist` : `Add ${symbol} to watchlist`}
+                title={added ? `将${symbol}移出观察列表` : `将${symbol}加入观察列表`}
+                aria-label={added ? `将${symbol}移出观察列表` : `将${symbol}加入观察列表`}
                 className={`watchlist-icon-btn ${added ? "watchlist-icon-added" : ""}`}
                 onClick={handleClick}
             >

@@ -1,4 +1,5 @@
-export const PERSONALIZED_WELCOME_EMAIL_PROMPT = `Generate highly personalized HTML content that will be inserted into an email template at the {{intro}} placeholder.
+export const PERSONALIZED_WELCOME_EMAIL_PROMPT = `生成高度个性化的HTML内容，将插入到邮件模板的{{intro}}占位符中。
+为避免歧义，prompt使用英文说明，但你的输出内容应尽量使用中文。
 
 User profile data:
 {{userProfile}}
@@ -41,13 +42,14 @@ CRITICAL FORMATTING REQUIREMENTS:
 - Second sentence should add helpful context or reinforce the personalization
 
 Example personalized outputs (showing obvious customization with TWO sentences):
-<p class="mobile-text" style="margin: 0 0 30px 0; font-size: 16px; line-height: 1.6; color: #CCDADC;">Thanks for joining Signalist! As someone focused on <strong>technology growth stocks</strong>, you'll love our real-time alerts for companies like the ones you're tracking. We'll help you spot opportunities before they become mainstream news.</p>
+<p class="mobile-text" style="margin: 0 0 30px 0; font-size: 16px; line-height: 1.6; color: #CCDADC;">感谢加入Signalist！作为专注于<strong>科技成长股</strong>的投资者，您会喜欢我们为您跟踪的公司提供的实时提醒。我们将帮助您在机会成为主流新闻之前发现它们。</p>
 
-<p class="mobile-text" style="margin: 0 0 30px 0; font-size: 16px; line-height: 1.6; color: #CCDADC;">Great to have you aboard! Perfect for your <strong>conservative retirement strategy</strong> — we'll help you monitor dividend stocks without overwhelming you with noise. You can finally track your portfolio progress with confidence and clarity.</p>
+<p class="mobile-text" style="margin: 0 0 30px 0; font-size: 16px; line-height: 1.6; color: #CCDADC;">很高兴有您加入！非常适合您的<strong>保守退休策略</strong>——我们将帮助您监控股息股票，而不会让您被噪音淹没。您终于可以自信清晰地跟踪投资组合进展。</p>
 
-<p class="mobile-text" style="margin: 0 0 30px 0; font-size: 16px; line-height: 1.6; color: #CCDADC;">You're all set! Since you're new to investing, we've designed simple tools to help you build confidence while learning the <strong>healthcare sector</strong> you're interested in. Our beginner-friendly alerts will guide you without the confusing jargon.</p>`;
+<p class="mobile-text" style="margin: 0 0 30px 0; font-size: 16px; line-height: 1.6; color: #CCDADC;">您已准备就绪！既然您是投资新手，我们设计了简单工具帮助您在学习感兴趣的<strong>医疗健康板块</strong>时建立信心。我们新手友好的提醒将指导您，没有令人困惑的行话。</p>`;
 
-export const NEWS_SUMMARY_EMAIL_PROMPT = `Generate HTML content for a market news summary email that will be inserted into the NEWS_SUMMARY_EMAIL_TEMPLATE at the {{newsContent}} placeholder.
+export const NEWS_SUMMARY_EMAIL_PROMPT = `为市场新闻摘要邮件生成HTML内容，将插入到NEWS_SUMMARY_EMAIL_TEMPLATE的{{newsContent}}占位符中。
+为避免歧义，prompt使用英文说明，但你的输出内容应尽量使用中文。
 
 News data to summarize:
 {{newsData}}
@@ -58,10 +60,10 @@ CRITICAL FORMATTING REQUIREMENTS:
 - Use these specific CSS classes and styles to match the email template:
 
 SECTION HEADINGS (for categories like "Market Highlights", "Top Movers", etc.):
-<h3 class="mobile-news-title dark-text" style="margin: 30px 0 15px 0; font-size: 18px; font-weight: 600; color: #f8f9fa; line-height: 1.3;">Section Title</h3>
+<h3 class="mobile-news-title dark-text" style="margin: 30px 0 15px 0; font-size: 18px; font-weight: 600; color: #f8f9fa; line-height: 1.3;">部分标题</h3>
 
 PARAGRAPHS (for news content):
-<p class="mobile-text dark-text-secondary" style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #CCDADC;">Content goes here</p>
+<p class="mobile-text dark-text-secondary" style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #CCDADC;">内容在此</p>
 
 STOCK/COMPANY MENTIONS:
 <strong style="color: #FDD458;">Stock Symbol</strong> for ticker symbols
@@ -105,12 +107,12 @@ Use this format with clear, concise explanations (no label needed):
 INSIGHT SECTION:
 Add simple context explanation:
 <div style="background-color: #141414; border: 1px solid #374151; padding: 15px; border-radius: 6px; margin: 16px 0;">
-<p class="dark-text-secondary" style="margin: 0; font-size: 14px; color: #CCDADC; line-height: 1.4;">💡 <strong style="color: #FDD458;">Bottom Line:</strong> Simple explanation of why this news matters to your money in everyday language.</p>
+<p class="dark-text-secondary" style="margin: 0; font-size: 14px; color: #CCDADC; line-height: 1.4;">💡 <strong style="color: #FDD458;">核心要点：</strong> 用日常语言简单解释为什么这些新闻对您的资金重要。</p>
 </div>
 
 READ MORE BUTTON:
 <div style="margin: 20px 0 0 0;">
-<a href="ARTICLE_URL" style="color: #FDD458; text-decoration: none; font-weight: 500; font-size: 14px;" target="_blank" rel="noopener noreferrer">Read Full Story →</a>
+<a href="文章URL" style="color: #FDD458; text-decoration: none; font-weight: 500; font-size: 14px;" target="_blank" rel="noopener noreferrer">阅读完整故事 →</a>
 </div>
 
 ARTICLE DIVIDER:
@@ -122,6 +124,7 @@ Between major sections, use:
 <div style="border-top: 1px solid #374151; margin: 32px 0 24px 0;"></div>
 
 Content guidelines:
+- Use chinese output by default
 - Organize news into logical sections with icons (📊 Market Overview, 📈 Top Gainers, 📉 Top Losers, 🔥 Breaking News, 💼 Earnings Reports, 🏛️ Economic Data, etc.)
 - NEVER repeat section headings - use each section type only once per email
 - For each news article, include its actual headline/title from the news data
