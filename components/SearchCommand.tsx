@@ -7,8 +7,10 @@ import { Loader2, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import { searchStocks } from "@/lib/actions/finnhub.actions";
 import { useDebounce } from "@/hooks/useDebounce";
+import WatchlistStar from "./WatchlistStar";
+import { addToWatchlist, removeFromWatchlist } from "@/lib/actions/watchlist.actions";
 
-export default function SearchCommand({ renderAs = 'button', label = 'Add stock', initialStocks }: SearchCommandProps) {
+export default function SearchCommand({ renderAs = 'button', label = 'Add stock', initialStocks, userEmail }: SearchCommandProps) {
     const [open, setOpen] = useState(false)
     const [searchTerm, setSearchTerm] = useState("")
     const [loading, setLoading] = useState(false)
@@ -16,6 +18,8 @@ export default function SearchCommand({ renderAs = 'button', label = 'Add stock'
 
     const isSearchMode = !!searchTerm.trim();
     const displayStocks = isSearchMode ? stocks : stocks?.slice(0, 10);
+
+
 
     useEffect(() => {
         const onKeyDown = (e: KeyboardEvent) => {
@@ -53,6 +57,28 @@ export default function SearchCommand({ renderAs = 'button', label = 'Add stock'
         setSearchTerm("");
         setStocks(initialStocks);
     }
+
+    // watchList star
+    const handleWatchlistToggle = async (stock: StockWithWatchlistStatus) => {
+        if (!userEmail) return;
+
+        try {
+            if (stock.isInWatchlist) {
+                await removeFromWatchlist(userEmail, stock.symbol);
+            } else {
+                await addToWatchlist(userEmail, stock.symbol, stock.name);
+            }
+
+            // 更新本地状态
+            setStocks(prev => prev.map(s =>
+                s.symbol === stock.symbol
+                    ? { ...s, isInWatchlist: !s.isInWatchlist }
+                    : s
+            ));
+        } catch (error) {
+            console.error('Failed to toggle watchlist:', error);
+        }
+    };
 
     return (
         <>
@@ -99,7 +125,11 @@ export default function SearchCommand({ renderAs = 'button', label = 'Add stock'
                                                 {stock.symbol} | {stock.exchange} | {stock.type}
                                             </div>
                                         </div>
-                                        {/*<Star />*/}
+                                        <WatchlistStar
+                                            isInWatchlist={stock.isInWatchlist}
+                                            onToggle={() => handleWatchlistToggle(stock)}
+                                            size="sm"
+                                            disabled={false} />
                                     </Link>
                                 </li>
                             ))}

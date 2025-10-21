@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import SearchCommand from "@/components/SearchCommand";
 import { auth } from "@/lib/better-auth/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";

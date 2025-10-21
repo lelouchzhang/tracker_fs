@@ -59,6 +59,7 @@ declare global {
     renderAs?: "button" | "text";
     label?: string;
     initialStocks: StockWithWatchlistStatus[];
+    userEmail: string;
   };
 
   type WelcomeEmailData = {
@@ -109,6 +110,7 @@ declare global {
     showTrashIcon?: boolean;
     type?: "button" | "icon";
     onWatchlistChange?: (symbol: string, isAdded: boolean) => void;
+    userEmail: string | undefined;
   };
 
   type QuoteData = {
@@ -217,4 +219,4 @@ declare global {
   };
 }
 
-export {}; // 让文件变成「模块」以防「孤立脚本」警告，但不导出任何东西
+export { }; // 让文件变成「模块」以防「孤立脚本」警告，但不导出任何东西

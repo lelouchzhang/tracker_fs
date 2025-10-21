@@ -1,5 +1,6 @@
 "use client";
 import React, { useMemo, useState } from "react";
+import { addToWatchlist, removeFromWatchlist } from "@/lib/actions/watchlist.actions";
 
 // Minimal WatchlistButton implementation to satisfy page requirements.
 // This component focuses on UI contract only. It toggles local state and
@@ -12,18 +13,35 @@ const WatchlistButton = ({
     showTrashIcon = false,
     type = "button",
     onWatchlistChange,
+    userEmail
 }: WatchlistButtonProps) => {
     const [added, setAdded] = useState<boolean>(!!isInWatchlist);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const label = useMemo(() => {
         if (type === "icon") return added ? "" : "";
         return added ? "移出观察列表" : "加入观察列表";
     }, [added, type]);
 
-    const handleClick = () => {
-        const next = !added;
-        setAdded(next);
-        onWatchlistChange?.(symbol, next);
+    const handleClick = async () => {
+        if (!userEmail || loading) return;
+
+        setLoading(true);
+        try {
+            if (added) {
+                await removeFromWatchlist(userEmail, symbol);
+            } else {
+                await addToWatchlist(userEmail, symbol, company);
+            }
+
+            const next = !added;
+            setAdded(next);
+            onWatchlistChange?.(symbol, next);
+        } catch (error) {
+            console.error('Watchlist操作失败:', error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     if (type === "icon") {
@@ -65,8 +83,9 @@ const WatchlistButton = ({
                 >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 7h12M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2m-7 4v6m4-6v6m4-6v6" />
                 </svg>
+
             ) : null}
-            <span>{label}</span>
+            <span>{loading ? "处理中..." : label}</span>
         </button>
     );
 };
