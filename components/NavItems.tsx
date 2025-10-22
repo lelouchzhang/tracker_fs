@@ -21,6 +21,7 @@ const NavItems = ({ initialStocks, userEmail }: { initialStocks: StockWithWatchl
             <SearchCommand renderAs="text" label="Search" initialStocks={initialStocks} userEmail={userEmail} />
           </li>
         )
+
         return <li key={href}>
           <Link
             href={href}

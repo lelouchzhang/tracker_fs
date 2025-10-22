@@ -1,10 +1,8 @@
 "use client";
 import React, { useMemo, useState } from "react";
 import { addToWatchlist, removeFromWatchlist } from "@/lib/actions/watchlist.actions";
-
-// Minimal WatchlistButton implementation to satisfy page requirements.
-// This component focuses on UI contract only. It toggles local state and
-// calls onWatchlistChange if provided. Styling hooks match globals.css.
+import { toast } from "sonner";
+import { useDebounce } from "@/hooks/useDebounce";
 
 const WatchlistButton = ({
     symbol,
@@ -13,7 +11,6 @@ const WatchlistButton = ({
     showTrashIcon = false,
     type = "button",
     onWatchlistChange,
-    userEmail
 }: WatchlistButtonProps) => {
     const [added, setAdded] = useState<boolean>(!!isInWatchlist);
     const [loading, setLoading] = useState<boolean>(false);
@@ -23,26 +20,34 @@ const WatchlistButton = ({
         return added ? "移出观察列表" : "加入观察列表";
     }, [added, type]);
 
-    const handleClick = async () => {
-        if (!userEmail || loading) return;
-
+    const toggleWatchlist = async () => {
         setLoading(true);
         try {
-            if (added) {
-                await removeFromWatchlist(userEmail, symbol);
-            } else {
-                await addToWatchlist(userEmail, symbol, company);
+            const result = added ? await removeFromWatchlist(symbol) : await addToWatchlist(symbol, company);
+            if (result.success) {
+                toast.success(added ? `${symbol}已移出观察列表` : `${symbol}已加入观察列表`, {
+                    description: `${company} ${added ? `已移出观察列表` : `已加入观察列表`
+                        }`
+                })
             }
 
-            const next = !added;
-            setAdded(next);
-            onWatchlistChange?.(symbol, next);
+            onWatchlistChange?.(symbol, !added)
         } catch (error) {
             console.error('Watchlist操作失败:', error);
         } finally {
             setLoading(false);
         }
     };
+
+    const debouncedToggle = useDebounce(toggleWatchlist, 300);
+
+    const handleClick = (e: React.MouseEvent) => {
+        if (loading) return;
+        e.stopPropagation();
+        e.preventDefault();
+        setAdded(!added)
+        debouncedToggle();
+    }
 
     if (type === "icon") {
         return (

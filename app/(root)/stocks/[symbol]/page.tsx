@@ -1,7 +1,8 @@
 import TradingViewWidget from "@/components/TradingViewWidget";
 import WatchlistButton from "@/components/WatchlistButton";
-import { isSymbolInWatchlist } from "@/lib/actions/watchlist.actions";
-import { auth } from "@/lib/better-auth/auth";
+import { WatchlistItem } from "@/database/models/watchlist.model";
+import { getStocksDetails } from "@/lib/actions/finnhub.actions";
+import { getWatchlist } from "@/lib/actions/watchlist.actions";
 import {
     SYMBOL_INFO_WIDGET_CONFIG,
     CANDLE_CHART_WIDGET_CONFIG,
@@ -10,18 +11,21 @@ import {
     COMPANY_PROFILE_WIDGET_CONFIG,
     COMPANY_FINANCIALS_WIDGET_CONFIG,
 } from "@/lib/constants";
-import { headers } from "next/headers";
+
+import { notFound } from "next/navigation";
 
 export default async function StockDetails({ params }: StockDetailsPageProps) {
     const { symbol } = await params;
     const scriptUrl = `https://s3.tradingview.com/external-embedding/embed-widget-`;
 
-    // 获取用户会话
-    const session = await auth.api.getSession({ headers: await headers() });
-    const userEmail = session?.user?.email;
+    const stockData = await getStocksDetails(symbol.toUpperCase());
+    const watchlist = await getWatchlist();
 
-    // 动态检查股票是否在观察列表中
-    const isInWatchlist = userEmail ? await isSymbolInWatchlist(userEmail, symbol.toUpperCase()) : false;
+    const isInWatchlist = watchlist.some(
+        (item: WatchlistItem) => item.symbol === symbol.toUpperCase()
+    );
+
+    if (!stockData) notFound();
     return (
         <div className="flex min-h-screen p-4 md:p-6 lg:p-8">
             <section className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
@@ -51,7 +55,7 @@ export default async function StockDetails({ params }: StockDetailsPageProps) {
                 {/* Right column */}
                 <div className="flex flex-col gap-6">
                     <div className="flex items-center justify-between">
-                        <WatchlistButton symbol={symbol.toUpperCase()} company={symbol.toUpperCase()} isInWatchlist={isInWatchlist} userEmail={userEmail ? userEmail : ""} />
+                        <WatchlistButton symbol={symbol.toUpperCase()} company={stockData.company} isInWatchlist={isInWatchlist} />
                     </div>
 
                     <TradingViewWidget
@@ -74,5 +78,5 @@ export default async function StockDetails({ params }: StockDetailsPageProps) {
                 </div>
             </section>
         </div>
-    );
+    )
 }
